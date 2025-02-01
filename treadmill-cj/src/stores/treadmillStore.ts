@@ -37,13 +37,8 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
 
 
 
-  const start = async () => {
-    try {
-      await axios.post(`${apiUrl}/start`);
-    } catch (error) {
-      err.value = "Error stopping treadmill"
-      console.error("Error starting treadmill:", error);
-    }
+  const addRecord = (record: TreadmillRecord) => {
+    records.value.push(record);
   };
 
   const reset = async () => {
@@ -93,7 +88,7 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
     speedRecords,
     total_distance,
     total_time_ms,
-    start,
+    addRecord,
     reset,
     all,
   };
