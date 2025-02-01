@@ -6,7 +6,7 @@ import { useTreadmillStore } from "@/stores/treadmillStore";
 // WebSocket URL (match Rust server address)
 const WS_URL = "ws://localhost:5000";
 
-const { totalDistance, records } = storeToRefs(useTreadmillStore());
+const { totalDistance, unit_records } = storeToRefs(useTreadmillStore());
 const { addRecord } = useTreadmillStore();
 
 // Reactive state for incoming data
@@ -27,7 +27,7 @@ const connectWebSocket = () => {
     try {
       const data = JSON.parse(event.data);
       if (data.data) {
-        console.log(data.data, records.value);
+        console.log(data.data, unit_records.value)
         addRecord(data.data);
         // totalDistance.value = data.data.total_distance;
         // totalTime.value = data.data.total_time_ms;
