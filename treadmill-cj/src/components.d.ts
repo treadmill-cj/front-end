@@ -13,5 +13,6 @@ declare module 'vue' {
     RawData: typeof import('./components/data/RawData.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    WebSocket: typeof import('./components/data/WebSocket.vue')['default']
   }
 }

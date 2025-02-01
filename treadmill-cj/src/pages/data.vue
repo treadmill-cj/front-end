@@ -3,5 +3,7 @@
 </script>
 
 <template>
+  <Graph />
   <RawData />
+  <WebSocket />
 </template>
