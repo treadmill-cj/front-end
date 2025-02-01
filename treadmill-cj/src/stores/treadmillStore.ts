@@ -84,7 +84,7 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
 
   return {
     err,
-    records: unit_records,
+    unit_records,
     speedRecords,
     total_distance,
     total_time_ms,
