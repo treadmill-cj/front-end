@@ -20,7 +20,12 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
     return unit_records.value.map((record) => record.speed);
   });
 
+  const timeRecords: ComputedRef<string[]> = computed(() => {
+    return unit_records.value.map((record) => record.total_time_ms);
+  });
+
   const speed: ComputedRef<number> = computed(() => {
+    if (unit_records.value.length === 0) return 0
     return unit_records.value[unit_records.value.length - 1].speed
   })
 
@@ -38,8 +43,6 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
 
     return end - start;
   });
-
-
 
   const addRecord = (record: TreadmillRecord) => {
     unit_records.value.push(record);
@@ -69,27 +72,12 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
     all();
   });
 
-  // Current speed calculation should be handled by WebSocket, but included for reference
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // const speed: ComputedRef<number> = computed(() => {
-  //   if (unit_records.value.length < 2) return 0;
-
-  //   const last = unit_records.value[unit_records.value.length - 1];
-  //   const prev = unit_records.value[unit_records.value.length - 2];
-
-  //   const distanceDiff = last.total_distance - prev.total_distance;
-  //   const timeDiff =
-  //     (new Date(last.total_time_ms).getTime() -
-  //       new Date(prev.total_time_ms).getTime()) /
-  //     1000;
-
-  //   return timeDiff > 0 ? distanceDiff / timeDiff : 0;
-  // })
 
   return {
     err,
     unit_records,
     speedRecords,
+    timeRecords,
     speed,
     total_distance,
     total_time_ms,

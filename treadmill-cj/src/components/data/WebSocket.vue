@@ -3,6 +3,8 @@ import { ref, onMounted, onUnmounted } from "vue";
 import { storeToRefs } from "pinia";
 import { useTreadmillStore } from "@/stores/treadmillStore";
 
+import type { Ref } from "vue";
+
 // WebSocket URL (match Rust server address)
 const WS_URL = import.meta.env.VITE_WS_URL;
 
@@ -12,7 +14,7 @@ const { addRecord } = useTreadmillStore();
 // Reactive state for incoming data
 // const totalDistance = ref(0);
 
-const socket = ref(null);
+const socket: Ref<WebSocket | null> = ref(null);
 
 const connectWebSocket = () => {
   socket.value = new WebSocket(WS_URL);
@@ -51,9 +53,10 @@ onUnmounted(() => {
 });
 
 const convertNumberToTime = (number: number) => {
-  const hours = Math.floor(number / 3600);
-  const minutes = Math.floor((number % 3600) / 60);
-  const seconds = number % 60;
+  const totalSeconds = number / 1000;
+  const hours = Math.floor(totalSeconds / 3600);
+  const minutes = Math.floor((totalSeconds % 3600) / 60);
+  const seconds = totalSeconds % 60;
 
   const formattedHours = hours.toString().padStart(2, '0');
   const formattedMinutes = minutes.toString().padStart(2, '0');
