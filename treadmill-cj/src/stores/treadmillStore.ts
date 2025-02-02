@@ -37,10 +37,6 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
 
 
 
-  const addRecord = (record: TreadmillRecord) => {
-    unit_records.value.push(record);
-  };
-
   const reset = async () => {
     unit_records.value = [];
     try {
@@ -88,7 +84,6 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
     speedRecords,
     total_distance,
     total_time_ms,
-    addRecord,
     reset,
     all,
   };

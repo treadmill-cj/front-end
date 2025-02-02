@@ -5,5 +5,5 @@
 <template>
   <Graph />
   <RawData />
-  <WebSocket />
+  <WebSocket />/
 </template>
