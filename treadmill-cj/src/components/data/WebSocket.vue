@@ -56,7 +56,7 @@ const convertNumberToTime = (number: number) => {
   const totalSeconds = number / 1000;
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
-  const seconds = totalSeconds % 60;
+  const seconds = Math.round(totalSeconds % 60);
 
   const formattedHours = hours.toString().padStart(2, '0');
   const formattedMinutes = minutes.toString().padStart(2, '0');
@@ -71,9 +71,9 @@ const convertNumberToTime = (number: number) => {
   <v-container>
     <v-card class="pa-4">
       <h1>Live Treadmill Data</h1>
-      <p><strong>Total Distance:</strong> {{ total_distance }} meters</p>
-      <p><strong>Total Time:</strong> {{ convertNumberToTime(total_time_ms) }} ms</p>
-      <p><strong>Speed:</strong> {{ speed }} m/s</p>
+      <p><strong>Total Distance:</strong> {{ total_distance }} ft</p>
+      <p><strong>Total Time:</strong> {{ convertNumberToTime(total_time_ms) }} </p>
+      <p><strong>Speed:</strong> {{ Math.round(speed) }} m/s</p>
     </v-card>
   </v-container>
 </template>
