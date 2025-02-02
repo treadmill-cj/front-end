@@ -6,12 +6,11 @@ import { useTreadmillStore } from "@/stores/treadmillStore";
 // WebSocket URL (match Rust server address)
 const WS_URL = import.meta.env.VITE_WS_URL;
 
-const {  total_distance, total_time_ms, unit_records  } = storeToRefs(useTreadmillStore());
+const {  total_distance, total_time_ms, unit_records, speed  } = storeToRefs(useTreadmillStore());
 const { addRecord } = useTreadmillStore();
 
 // Reactive state for incoming data
 // const totalDistance = ref(0);
-const speed = ref(0);
 
 const socket = ref(null);
 

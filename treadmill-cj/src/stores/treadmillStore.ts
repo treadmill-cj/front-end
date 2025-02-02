@@ -16,17 +16,21 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
   const err: Ref<string | null> = ref(null);
   const unit_records: Ref<Array<TreadmillRecord>> = ref([]);
 
-  const speedRecords = computed(() => {
+  const speedRecords: ComputedRef<number[]> = computed(() => {
     return unit_records.value.map((record) => record.speed);
   });
 
-  const total_distance = computed(() => {
+  const speed: ComputedRef<number> = computed(() => {
+    return unit_records.value[unit_records.value.length - 1].speed
+  })
+
+  const total_distance: ComputedRef<number> = computed(() => {
     return unit_records.value.length > 0
       ? unit_records.value[unit_records.value.length - 1].total_distance
       : 0;
   });
 
-  const total_time_ms = computed(() => {
+  const total_time_ms: ComputedRef<number> = computed(() => {
     if (unit_records.value.length < 2) return 0;
 
     const start = new Date(unit_records.value[0].total_time_ms).getTime();
@@ -67,25 +71,26 @@ export const useTreadmillStore = defineStore("treadmillData", () => {
 
   // Current speed calculation should be handled by WebSocket, but included for reference
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const speed: ComputedRef<number> = computed(() => {
-    if (unit_records.value.length < 2) return 0;
+  // const speed: ComputedRef<number> = computed(() => {
+  //   if (unit_records.value.length < 2) return 0;
 
-    const last = unit_records.value[unit_records.value.length - 1];
-    const prev = unit_records.value[unit_records.value.length - 2];
+  //   const last = unit_records.value[unit_records.value.length - 1];
+  //   const prev = unit_records.value[unit_records.value.length - 2];
 
-    const distanceDiff = last.total_distance - prev.total_distance;
-    const timeDiff =
-      (new Date(last.total_time_ms).getTime() -
-        new Date(prev.total_time_ms).getTime()) /
-      1000;
+  //   const distanceDiff = last.total_distance - prev.total_distance;
+  //   const timeDiff =
+  //     (new Date(last.total_time_ms).getTime() -
+  //       new Date(prev.total_time_ms).getTime()) /
+  //     1000;
 
-    return timeDiff > 0 ? distanceDiff / timeDiff : 0;
-  })
+  //   return timeDiff > 0 ? distanceDiff / timeDiff : 0;
+  // })
 
   return {
     err,
     unit_records,
     speedRecords,
+    speed,
     total_distance,
     total_time_ms,
     addRecord,
