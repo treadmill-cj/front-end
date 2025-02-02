@@ -29,7 +29,7 @@
       >
         <v-list-item-title>{{ item.total_distance }}</v-list-item-title>
         <v-list-item-subtitle>{{ item.total_time_ms }}</v-list-item-subtitle>
-        <v-list-item-text>{{ item.speed }}</v-list-item-text>
+        <v-list-item-subtitle>{{ item.speed }}</v-list-item-subtitle>
       </v-list-item>
     </v-list>
   </v-container>

@@ -6,7 +6,8 @@ import { useTreadmillStore } from "@/stores/treadmillStore";
 // WebSocket URL (match Rust server address)
 const WS_URL = import.meta.env.VITE_WS_URL;
 
-const {  total_distance, total_time_ms, unit_records,  } = storeToRefs(useTreadmillStore());
+const {  total_distance, total_time_ms, unit_records  } = storeToRefs(useTreadmillStore());
+const { addRecord } = useTreadmillStore();
 
 // Reactive state for incoming data
 // const totalDistance = ref(0);
@@ -24,9 +25,12 @@ const connectWebSocket = () => {
   socket.value.onmessage = (event) => {
     try {
       const data = JSON.parse(event.data);
-      if (data.data) {
-        unit_records.value.push(data.data)
+      if (!data.data) return
+      if (data.data.total_distance < total_distance.value) {
+        unit_records.value = []
+        // unit_records.value.push(data.data)
       }
+      addRecord(data.data)
     } catch (error) {
       console.error("Error parsing WebSocket message:", error);
     }
@@ -38,7 +42,7 @@ const connectWebSocket = () => {
 
   socket.value.onclose = () => {
     console.log("WebSocket Disconnected. Reconnecting...");
-    setTimeout(connectWebSocket, 5000); // Reconnect after 3 seconds
+    setTimeout(connectWebSocket, 3000); // Reconnect after 3 seconds
   };
 };
 
