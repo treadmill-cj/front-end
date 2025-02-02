@@ -24,7 +24,7 @@
     <v-row>{{ treadmillStore.totalTime }}</v-row>
     <v-list>
       <v-list-item
-        v-for="item in treadmillStore.records"
+        v-for="item in treadmillStore.unit_records"
         :key="item.timestamp"
       >
         <v-list-item-title>{{ item.total_distance }}</v-list-item-title>
